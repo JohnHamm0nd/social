@@ -1,0 +1,40 @@
+{% extends 'groups/group_base.html' %}
+{% block pregroup %}
+<!--유저정보 출력-->
+    <div class="col-md-4">
+        {% if user.is_authenticated %}
+            <h2>
+                반갑습니다!!!
+                <a href="">@{{user.username}}</a>
+            </h2>
+        {% endif %}
+        <h2>Group</h2>
+        <p>여기는 그룹페이지입니다!!!</p>
+        
+        {% if user.is_authenticated %}
+            <a href="{%url 'groups:create'%}" class="btn btn-warning">
+                <i class="fab fa-twitter"></i>
+                create new Group!!
+            </a>
+        {% endif %}
+        
+    </div>
+{%endblock%}
+
+{%block group_content%}
+<!--그룹 리스트 출력-->
+<div class="col-md-8">
+    {% for group in group_list %}
+    <div class="jumbotron">
+        <h3>{{group.name}}</h3>
+        <button type="button" class="btn btn-primary">
+          Member <span class="badge badge-light">{{group.members.count}}</span>
+        </button>
+        <a href="{%url 'groups:detail' slug=group.slug%}" class='btn btn-primary'>
+            그룹보기
+        </a>
+    </div>
+    {%endfor%}
+</div>
+{%endblock%}
+
